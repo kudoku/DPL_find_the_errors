@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @task = Task.all
+    @tasks = Task.all
   end
 
   def show
@@ -26,7 +26,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to @tasks, notice: 'Task was successfully updated.'
+      redirect_to @task, notice: 'Task was successfully updated.'
     else
       render :edit
     end
@@ -38,11 +38,16 @@ class TasksController < ApplicationController
   end
 
   private
-    def set_tasks
+    def set_task
       @task = Task.find(params[:id])
     end
 
     def task_params
-      params.require(:task).permit(:priority)
+      params.require(:task).permit(:priority, :description)
     end
 end
+
+# index action > @tasks
+# params.permit :description
+# set_tasks>set_task
+#update action tasks>task
